@@ -1,9 +1,16 @@
 package com.sip.ams.entities;
 
 import java.sql.Date;
-
-public class Command {
-	
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+@Entity
+public class Commande {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
     private double prix;
     private Date Dcommande;
@@ -67,7 +74,7 @@ public class Command {
 	public void setAdress(String adress) {
 		this.adress = adress;
 	}
-	public Command(int id, double prix, Date dcommande, int idClient, String nom, String prenom, String email, int tel,
+	public Commande(int id, double prix, Date dcommande, int idClient, String nom, String prenom, String email, int tel,
 			String adress) {
 		super();
 		this.id = id;
@@ -79,6 +86,11 @@ public class Command {
 		this.email = email;
 		this.tel = tel;
 		this.adress = adress;
+	}
+	
+	public Commande() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 	@Override
 	public String toString() {
