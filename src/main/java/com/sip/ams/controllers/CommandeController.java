@@ -8,10 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 
 import com.sip.ams.entities.Commande;
-import com.sip.ams.entities.Book;
 import com.sip.ams.repositories.CommandeRepository;
 
 import java.util.List;
@@ -51,7 +50,7 @@ public class CommandeController {
 	return "redirect:list";
 	}
 	@GetMapping("delete/{id}")
-	public String deleteCommande(@PathVariable("id") long id, Model model) {
+	public String deleteCommande(@PathVariable("id") int id, Model model) {
 	
 	Commande commande = commandeRepository.findById(id)
 	.orElseThrow(() -> new IllegalArgumentException("Invalid commande Id:" + id));
@@ -61,7 +60,7 @@ public class CommandeController {
 	return "redirect:../list";
 	}
 	@GetMapping("edit/{id}")
-	public String showCommandeFormToUpdate(@PathVariable("id") long id, Model model)
+	public String showCommandeFormToUpdate(@PathVariable("id") int id, Model model)
 	{
 		
 	Commande commande = commandeRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid commande Id:" + id));
@@ -69,7 +68,8 @@ public class CommandeController {
 	return "commande/updateCommande";
 	}
 	@PostMapping("update")
-	public String updateCommande(@Valid Commande commande, BindingResult result, Model model) {
+	public String updateCommande(@Valid Commande commande, BindingResult result, Model
+	model) {
 	if (result.hasErrors()) {
 	return "commande/updateCommande";
 	}
