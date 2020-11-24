@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank;
 public class Commande {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private long id;
     private double prix;
     private Date Dcommande;
     private int idClient;
@@ -20,10 +20,10 @@ public class Commande {
     private String email;
     private int tel;
     private String adress;
-	public int getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public double getPrix() {
@@ -74,7 +74,7 @@ public class Commande {
 	public void setAdress(String adress) {
 		this.adress = adress;
 	}
-	public Commande(int id, double prix, Date dcommande, int idClient, String nom, String prenom, String email, int tel,
+	public Commande(long id, double prix, Date dcommande, int idClient, String nom, String prenom, String email, int tel,
 			String adress) {
 		super();
 		this.id = id;

@@ -52,7 +52,7 @@ public class CommandeController {
 	}
 	@GetMapping("delete/{id}")
 	public String deleteCommande(@PathVariable("id") long id, Model model) {
-	// long id2 = 100L;
+	
 	Commande commande = commandeRepository.findById(id)
 	.orElseThrow(() -> new IllegalArgumentException("Invalid commande Id:" + id));
 	System.out.println("suite du programme...");
@@ -61,16 +61,15 @@ public class CommandeController {
 	return "redirect:../list";
 	}
 	@GetMapping("edit/{id}")
-	public String showCommandeFormToUpdate(@PathVariable("id") int id, Model model)
+	public String showCommandeFormToUpdate(@PathVariable("id") long id, Model model)
 	{
 		
-	Commande commande = commandeRepository.findById((long) id).orElseThrow(() -> new IllegalArgumentException("Invalid commande Id:" + id));
-	model.addAttribute("provider", commande);
+	Commande commande = commandeRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid commande Id:" + id));
+	model.addAttribute("commande", commande);
 	return "commande/updateCommande";
 	}
 	@PostMapping("update")
-	public String updateCommande(@Valid Commande commande, BindingResult result, Model
-	model) {
+	public String updateCommande(@Valid Commande commande, BindingResult result, Model model) {
 	if (result.hasErrors()) {
 	return "commande/updateCommande";
 	}
