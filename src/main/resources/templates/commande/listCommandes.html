@@ -20,44 +20,38 @@
 		<div class="card">
 			<div class="card-body">
 				<div th:switch="${commandes}" class="container my-5">
-					<p class="my-5">
-						<a th:href="@{'/commande/add/'}" class="btn btnprimary"><i
-							class="fas fa-user-plus ml-2"> Add Commande</i></a>
-					</p>
+					
 					<div class="col-md-10">
 						<h2 th:case="null">No Commandes yet!</h2>
-						<div th:case="*">
-							<table class="table table-striped table-responsivemd">
-								<thead>
-									<tr>
-										<th>Client Name</th>
-										<th>Email</th>
-										<th>Address</th>
-										<th>Tel</th>
-										<th>Date Commande</th>
-										<th>Price</th>
-										<th>Edit</th>
-										<th>Delete</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr th:each="commande : ${commandes}">
-										<td th:text="${commande.nom}"></td>
-										<td th:text="${commande.email}"></td>
-										<td th:text="${commande.adress}"></td>
-										<td th:text="${commande.tel}"></td>
-										<td th:text="${commande.dcommande}"></td>
-										<td th:text="${commande.prix}"></td>
-										<td><a
-											th:href="@{/commande/edit/{id}(id=${commande.id})}"
-											class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>
-										<td><a
-											th:href="@{/commande/delete/{id}(id=${commande.id})}"
-											class="btn btnprimary"><i class="fas fa-user-times ml-2"></i></a></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
+						<form method="post" th:object="${commande}" th:action="@{/commande/add}">
+							<div th:case="*">
+								<table class="table table-striped table-responsivemd">
+									<thead>
+										<tr>
+											<th>Title</th>
+											<th>Author</th>
+											<th>Price</th>
+											<th>Release Date</th>
+											<th>Add to chart</th>
+
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="book : ${selBooks}">
+											<td th:text="${book.title}"></td>
+											<td th:text="${book.author}"></td>
+											<td th:text="${book.price}"></td>
+											<td th:text="${book.releaseDate}"></td>
+											<td  ><input type="checkbox" name="vendu"  th:value="${book.id}"></td>
+
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="field">
+							<button type="submit" class="btn btn-success"><i class="fas fa-shopping-cart"></i></button>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>

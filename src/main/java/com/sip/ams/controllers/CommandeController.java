@@ -8,8 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sip.ams.entities.Book;
 import com.sip.ams.entities.Commande;
+import com.sip.ams.repositories.BookRepository;
 import com.sip.ams.repositories.CommandeRepository;
 
 import java.util.List;
@@ -20,18 +24,20 @@ import javax.validation.Valid;
 @RequestMapping("/commande/")
 public class CommandeController {
 	private final CommandeRepository commandeRepository;
-
+	private final BookRepository bookRepository;
 	@Autowired
-	public CommandeController(CommandeRepository commandeRepository) {
+	public CommandeController(CommandeRepository commandeRepository,BookRepository bookRepository) {
 		this.commandeRepository = commandeRepository;
+		this.bookRepository=bookRepository;
 	}
-
+	
 	@GetMapping("list")
 	public String listCommandes(Model model) {
-		List<Commande> lp = (List<Commande>) commandeRepository.findAll();
-		if (lp.size() == 0)
-			lp = null;
-		model.addAttribute("commandes", lp);
+		List<Commande> lc = (List<Commande>) commandeRepository.findAll();
+		List<Book> lb = (List<Book>) bookRepository.findAll();
+		
+		model.addAttribute("commandes", lc);
+		model.addAttribute("selBooks",lb);
 		return "commande/listCommandes";
 
 	}
@@ -44,12 +50,18 @@ public class CommandeController {
 	}
 
 	@PostMapping("add")
-	public String addCommande(@Valid Commande commande, BindingResult result, Model model) {
-		if (result.hasErrors()) {
+	@ResponseBody
+	public String addCommande(@Valid Commande commande, BindingResult result, Model model , 
+			@RequestParam("vendu")List listBooks) {
+		/*if (result.hasErrors()) {
 			return "commande/addCommande";
-		}
-		commandeRepository.save(commande);
-		return "redirect:list";
+		}*/
+		System.out.println(listBooks);
+		//commandeRepository.save(commande);
+		
+		return ""+listBooks.size();
+		//return "redirect:list";
+		//return "Spring";
 	}
 
 	@GetMapping("delete/{id}")
