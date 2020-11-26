@@ -35,7 +35,7 @@ private BookRepository bookRepository;
  return bookRepository.save(book);
  }
 @PutMapping("/{bookId}")
- public Book updateBook(@PathVariable Long bookId, @Valid
+ public Book updateBook(@PathVariable int bookId, @Valid
 @RequestBody Book bookRequest) {
  return bookRepository.findById(bookId).map(book -> {
  book.setTitle(bookRequest.getTitle());
@@ -47,7 +47,7 @@ private BookRepository bookRepository;
 bookId + " not found"));
  }
  @DeleteMapping("/{bookId}")
- public Book deleteBook(@PathVariable Long bookId) {
+ public Book deleteBook(@PathVariable int bookId) {
 	 Book book = bookRepository.findById(bookId)
 				.orElseThrow(() -> new IllegalArgumentException("Invalid book Id:" + bookId));
 		System.out.println("suite du programme...");
